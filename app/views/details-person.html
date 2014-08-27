@@ -38,7 +38,7 @@
 </div>
 
 <div class="item-scroller" ng-if="details.combined_credits.cast.length > 0">
-	<a ng-href="/#/title/{{title.id}}/{{title.media_type}}" ng-repeat="title in details.combined_credits.cast | orderBy:['media_type','-release_date'] " class="item item-poster">
+	<a ng-href="#/title/{{title.id}}/{{title.media_type}}" ng-repeat="title in details.combined_credits.cast | orderBy:['media_type','-release_date'] " class="item item-poster">
 		<div class="background" ng-style="{ 'background-image': 'url('+posterPath + title.poster_path+')' }"></div>
 		<div class="info">
 			{{title.title || title.name}} (<span ng-if="title.media_type === 'movie'">{{title.release_date.substr(0,4)}}</span><span ng-if="title.media_type === 'tv'">{{title.episode_count}} episodes</span>)<br>
@@ -52,7 +52,7 @@
 </div>
 
 <div class="item-scroller" ng-if="details.combined_credits.crew.length > 0">
-	<a ng-href="/#/title/{{title.id}}/{{title.media_type}}" ng-repeat="title in details.combined_credits.crew" class="item item-poster">
+	<a ng-href="#/title/{{title.id}}/{{title.media_type}}" ng-repeat="title in details.combined_credits.crew" class="item item-poster">
 		<div class="background" ng-style="{ 'background-image': 'url('+posterPath + title.poster_path+')' }"></div>
 		<div class="info">
 			{{title.title}}<br>

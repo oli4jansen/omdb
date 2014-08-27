@@ -54,7 +54,7 @@
 </div>
 
 <div class="item-scroller" ng-if="details.credits.cast.length > 0">
-	<a ng-href="/#/name/{{person.id}}" ng-repeat="person in details.credits.cast" class="item item-poster">
+	<a ng-href="#/name/{{person.id}}" ng-repeat="person in details.credits.cast" class="item item-poster">
 		<div class="background" ng-style="{ 'background-image': 'url('+profilePath + person.profile_path+')' }"></div>
 		<div class="info">
 			{{person.name}}<br>
@@ -68,7 +68,7 @@
 </div>
 
 <div class="item-scroller" ng-if="details.credits.crew.length > 0">
-	<a ng-href="/#/name/{{person.id}}" ng-repeat="person in details.credits.crew" class="item item-poster">
+	<a ng-href="#/name/{{person.id}}" ng-repeat="person in details.credits.crew" class="item item-poster">
 		<div class="background" ng-style="{ 'background-image': 'url('+profilePath + person.profile_path+')' }"></div>
 		<div class="info">
 			{{person.name}}<br>
@@ -82,7 +82,7 @@
 </div>
 
 <div class="item-scroller" ng-if="details.similar.results.length > 0">
-	<a ng-href="/#/title/{{title.id}}/{{type}}" ng-repeat="title in details.similar.results | orderBy:'-popularity'" class="item item-poster">
+	<a ng-href="#/title/{{title.id}}/{{type}}" ng-repeat="title in details.similar.results | orderBy:'-popularity'" class="item item-poster">
 		<div class="background" ng-style="{ 'background-image': 'url('+posterPath + title.poster_path+')' }"></div>
 		<div class="info">
 			{{title.title || title.name}}<span ng-if="type === 'movie'"> ({{title.release_date.substr(0,4)}})</span>
