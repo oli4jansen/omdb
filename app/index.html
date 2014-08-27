@@ -1,0 +1,90 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Olivier's Movie Database</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="omdbApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div ng-controller="AppCtrl" class="header" ng-class="{ translucent: translucentMenu }">
+      <div class="inner-header">
+        <a href="/"><img src="images/logo-white-110.png" class="logo"></a>
+        <form ng-submit="search()">
+          <input type="text" placeholder="Search for movies, TV shows or people..." ng-model="query" ng-focus="activateAutocomplete()" ng-blur="hideAutocomplete()">
+          <div ng-class="{ show: showAutocomplete && (autocompleteMovies.length > 0 || autocompleteTvShows.length > 0 || autocompletePeople.length > 0) }" class="autocomplete">
+
+            <h5 ng-if="autocompleteMovies.length > 0">Movies</h5>
+            <a ng-repeat="movie in autocompleteMovies" ng-href="#/title/{{movie.id}}/movie">
+                <div class="image"><img ng-if="movie.poster_path" ng-src="{{posterPath+movie.poster_path}}"></div>
+                {{movie.title}} ({{movie.release_date.substr(0,4)}})
+            </a>
+
+            <h5 ng-if="autocompletePeople.length > 0">People</h5>
+            <a ng-repeat="person in autocompletePeople" ng-href="#/name/{{person.id}}">
+                <div class="image"><img ng-if="person.profile_path" ng-src="{{profilePath+person.profile_path}}"></div>
+                {{person.name}}
+            </a>
+
+            <h5 ng-if="autocompleteTvShows.length > 0">TV Shows</h5>
+            <a ng-repeat="tvShow in autocompleteTvShows" ng-href="#/title/{{tvShow.id}}/tv">
+                <div class="image"><img ng-if="tvShow.poster_path" ng-src="{{posterPath+tvShow.poster_path}}"></div>
+                {{tvShow.name}}
+            </a>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div ng-view="" class="view"></div>
+
+    <div class="footer">
+        &copy; Olivier Jansen<br>
+        All content is provided by <a href="https://www.themoviedb.org/documentation/website/terms-of-use">TMDb, Inc.</a>.
+    </div>
+
+    <!-- build:js(.) scripts/oldieshim.js -->
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+    <!-- endbuild -->
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+
+        <script src="scripts/services/anchorScroll.js"></script>
+
+        <script src="scripts/controllers/app.js"></script>
+        <script src="scripts/controllers/home.js"></script>
+        <script src="scripts/controllers/search.js"></script>
+        <script src="scripts/controllers/details-movie.js"></script>
+        <script src="scripts/controllers/details-person.js"></script>
+        <!-- endbuild -->
+</body>
+</html>
