@@ -42,7 +42,7 @@ module.exports = function (grunt) {
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test', 'karma']
+        tasks: ['newer:jshint:test'/*, 'karma'*/]
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -367,9 +367,9 @@ module.exports = function (grunt) {
       server: [
         'compass:server'
       ],
-      test: [
+/*      test: [
         'compass'
-      ],
+      ],*/
       dist: [
         'compass:dist',
         'imagemin',
@@ -378,12 +378,12 @@ module.exports = function (grunt) {
     },
 
     // Test settings
-    karma: {
+/*    karma: {
       unit: {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    }
+    }*/
   });
 
 

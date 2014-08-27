@@ -12,7 +12,6 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
     <!-- endbuild -->
   </head>
   <body ng-app="omdbApp">
@@ -22,7 +21,7 @@
 
     <div ng-controller="AppCtrl" class="header" ng-class="{ translucent: translucentMenu }">
       <div class="inner-header">
-        <a href="/"><img src="images/logo-white-110.png" class="logo"></a>
+        <a href="#/"><img src="images/logo-white-110.png" class="logo"></a>
         <form ng-submit="search()">
           <input type="text" placeholder="Search for movies, TV shows or people..." ng-model="query" ng-focus="activateAutocomplete()" ng-blur="hideAutocomplete()">
           <div ng-class="{ show: showAutocomplete && (autocompleteMovies.length > 0 || autocompleteTvShows.length > 0 || autocompletePeople.length > 0) }" class="autocomplete">
