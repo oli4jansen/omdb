@@ -3,12 +3,12 @@
 </div>
 
 <div class="item-scroller" ng-if="moviesCount">
-	<div ng-repeat="movie in movies" class="item item-poster item-poster-small" ng-click="details('title',movie,'movie')">
+	<a ng-href="#/title/{{movie.id}}/movie" ng-repeat="movie in movies" class="item item-poster item-poster-small">
 		<div class="background" ng-style="{ 'background-image': 'url('+posterPath + movie.poster_path+')' }"></div>
 		<div class="info">
 			{{movie.title}} ({{movie.release_date.substr(0,4)}})
 		</div>
-	</div>
+	</a>
 </div>
 
 <div class="page-holder" ng-if="tvShowsCount">
@@ -16,12 +16,12 @@
 </div>
 
 <div class="item-scroller" ng-if="tvShowsCount">
-	<div ng-repeat="tvShow in tvShows" class="item item-poster item-poster-small" ng-click="details('title',tvShow,'tv')">
+	<a ng-href="#/title/{{tvShow.id}}/tv" ng-repeat="tvShow in tvShows" class="item item-poster item-poster-small">
 		<div class="background" ng-style="{ 'background-image': 'url('+posterPath + tvShow.poster_path+')' }"></div>
 		<div class="info">
 			{{tvShow.name}}
 		</div>
-	</div>
+	</a>
 </div>
 
 <div class="page-holder" ng-if="peopleCount">
@@ -29,10 +29,10 @@
 </div>
 
 <div class="item-scroller" ng-if="peopleCount">
-	<div ng-repeat="person in people" class="item item-poster item-poster-small" ng-click="details('name',person,'')">
+	<a ng-href="#/name/{{person.id}}" ng-repeat="person in people" class="item item-poster item-poster-small">
 		<div class="background" ng-style="{ 'background-image': 'url('+profilePath + person.profile_path+')' }"></div>
 		<div class="info">
 			{{person.name}}
 		</div>
-	</div>
+	</a>
 </div>

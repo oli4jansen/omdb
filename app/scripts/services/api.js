@@ -4,6 +4,7 @@ angular.module('omdbApp')
   .factory('api', ['$http', 'APIURL', 'APIKey', function apiFactory($http, APIURL, APIKey) {
 
     var factory = {
+
       /*
        * Reusable API shizzle
        */
@@ -31,6 +32,7 @@ angular.module('omdbApp')
 
       /*
        * Nonreuseable API shizzle
+       * This should all be pretty self-explanatory
        */
 
       movies: {
@@ -40,8 +42,11 @@ angular.module('omdbApp')
         popular: function (callback) {
           factory.simpleRequest('movie/popular', callback);
         },
-        search: function () {
 
+        search: function (query, callback) {
+          factory.simpleRequest('search/movie', callback, {
+            query: query
+          });
         },
         autocomplete: function (query, callback) {
           factory.simpleRequest('search/movie', callback, {
@@ -55,8 +60,17 @@ angular.module('omdbApp')
         popular: function (callback) {
           factory.simpleRequest('tv/popular', callback);
         },
+        airingToday: function (callback) {
+          factory.simpleRequest('tv/airing_today', callback);
+        },
         topRated: function (callback) {
           factory.simpleRequest('tv/top_rated', callback);
+        },
+
+        search: function (query, callback) {
+          factory.simpleRequest('search/tv', callback, {
+            query: query
+          });
         },
         autocomplete: function (query, callback) {
           factory.simpleRequest('search/tv', callback, {
@@ -69,6 +83,12 @@ angular.module('omdbApp')
       people: {
         popular: function (callback) {
           factory.simpleRequest('person/popular', callback);
+        },
+
+        search: function (query, callback) {
+          factory.simpleRequest('search/person', callback, {
+            query: query
+          });
         },
         autocomplete: function (query, callback) {
           factory.simpleRequest('search/person', callback, {

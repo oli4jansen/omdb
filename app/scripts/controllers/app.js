@@ -39,32 +39,25 @@ angular.module('omdbApp')
         if(oldQuery !== $scope.query) {
           // Update the 'old query' with the current value for use in the future (1 sec from now)
           oldQuery = $scope.query;
-
           // Don't respond to short queries
           if($scope.query.length > 2) {
-
             // Search for movie suggestions
             api.movies.autocomplete($scope.query, function (data) {
               $scope.autocompleteMovies = data.results.splice(0,3);
             });
-
             // Search for person suggestions
             api.people.autocomplete($scope.query, function (data) {
               $scope.autocompletePeople = data.results.splice(0,3);
             });
-
             // Search for tv show suggestions
             api.tv.autocomplete($scope.query, function (data) {
               $scope.autocompleteTvShows = data.results.splice(0,3);
             });
-
           }else{
-
             // Short queries shall not be answered
             $scope.autocompleteMovies  = [];
             $scope.autocompleteTvShows = [];
             $scope.autocompletePeople  = [];
-
           }
         }
 

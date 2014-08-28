@@ -8,66 +8,40 @@
  * Controller of the omdbApp
  */
 angular.module('omdbApp')
-  .controller('SearchCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $anchorScroll, config, APIKey, APIURL) {
+  .controller('SearchCtrl', function ($scope, $rootScope, $routeParams, $location, $http, config, api) {
 
   	if(!$routeParams.query) {
+      // If there is no query, we can not search
   	  $location.path('');
   	}else{
+      // Attach the query to the rootScope to make is accessable from everywhere
       $rootScope.query = $routeParams.query;
     }
 
-    $scope.posterPath = config.getConfig().images.base_url+config.getConfig().images.poster_sizes[1];
-    $scope.profilePath = config.getConfig().images.base_url+config.getConfig().images.profile_sizes[1];
+    $scope.posterPath  = config.getImagePath('poster', 1);
+    $scope.profilePath = config.getImagePath('profile', 1);
 
-    $scope.movies = [];
-    $scope.people = [];
+    // Start with empty search results
+    $scope.movies  = [];
+    $scope.tvShows = [];
+    $scope.people  = [];
 
-    $http({
-      method: 'GET',
-      url: APIURL+'search/movie',
-      params: {
-        api_key: APIKey,
-        query: $routeParams.query
-      }
-    }).success(function (data) {
-      console.log(data);
-      $scope.movies = data.results;
+    // Search for movies
+    api.movies.autocomplete($routeParams.query, function (data) {
+      $scope.movies      = data.results;
       $scope.moviesCount = data.total_results;
-    }).error(function (data) {
-      console.log(data);
     });
 
-    $http({
-      method: 'GET',
-      url: APIURL+'search/tv',
-      params: {
-        api_key: APIKey,
-        query: $routeParams.query
-      }
-    }).success(function (data) {
-      console.log(data);
-      $scope.tvShows = data.results;
+    // Search for tv shows
+    api.tv.autocomplete($routeParams.query, function (data) {
+      $scope.tvShows      = data.results;
       $scope.tvShowsCount = data.total_results;
-    }).error(function (data) {
-      console.log(data);
     });
 
-    $http({
-      method: 'GET',
-      url: APIURL+'search/person',
-      params: {
-        api_key: APIKey,
-        query: $routeParams.query
-      }
-    }).success(function (data) {
-      console.log(data);
-      $scope.people = data.results;
+    // Search for people
+    api.people.autocomplete($routeParams.query, function (data) {
+      $scope.people      = data.results;
       $scope.peopleCount = data.total_results;
-    }).error(function (data) {
-      console.log(data);
     });
-
-    $scope.details = function (itemType, movie, contentType) { $location.path(itemType+'/'+movie.id+'/'+contentType); };
-    $scope.scrollTo = function (hash) { $location.hash(hash); $anchorScroll(); };
 
   });
