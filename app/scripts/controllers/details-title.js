@@ -68,12 +68,16 @@ angular.module('omdbApp')
 
       // Repeat the following 5 time:
       for(var i = 0;i<5;i++) {
+        console.log('vote_copy is nu '+vote_copy);
+        console.log('Math.round(vote_copy) is nu '+Math.round(vote_copy));
         if(vote_copy >= 1) {
           // If the rating is equal to or higher than 1, add one star to the 5-star-rating
+          console.log('Give star #'+(i+1));
           $scope.stars[i] = 2;
-        }else if(Math.round(vote_copy) === 0) {
+        }else if(Math.round(vote_copy) === 1) {
           // If the rating is only equal to 1 when rounded, provide half a star
           $scope.stars[i] = 1;
+          console.log('Give half star #'+(i+1));
         }
         // Subtract 1 from the rating before repeating
         vote_copy--;
@@ -89,6 +93,79 @@ angular.module('omdbApp')
           $scope.trailerYoutube = video;
         }
       });
+
+      // Add details to the sidebar
+
+      if($scope.details.release_date) {
+        $scope.sidebarDetails.push({
+          label: 'Release date',
+          value: $scope.details.release_date
+        });
+      }
+
+      if($scope.details.runtime) {
+        $scope.sidebarDetails.push({
+          label: 'Runtime',
+          value: $scope.details.runtime+' minutes'
+        });
+      }
+
+      if($scope.details.seasons && $scope.details.seasons.length > 0) {
+        $scope.sidebarDetails.push({
+          label: 'Number of seasons',
+          value: $scope.details.seasons.length
+        });
+      }
+
+      if($scope.details.networks && $scope.details.networks.length > 0) {
+        $scope.sidebarDetails.push({
+          label: 'Networks',
+          value: $scope.details.networks.map(function (elem) { return elem.name }).join('\n')
+        });
+      }
+
+      if($scope.details.genres && $scope.details.genres.length > 0) {
+        $scope.sidebarDetails.push({
+          label: 'Genres',
+          value: $scope.details.genres.map(function (elem) { return elem.name }).join(', ')
+        });
+      }
+
+      if($scope.details.production_companies && $scope.details.production_companies.length > 0) {
+        $scope.sidebarDetails.push({
+          label: 'Production companies',
+          value: $scope.details.production_companies.map(function (elem) { return elem.name }).join(', ')
+        });
+      }
+
+      if($scope.details.production_countries && $scope.details.production_countries.length > 0) {
+        $scope.sidebarDetails.push({
+          label: 'Production countries',
+          value: $scope.details.production_countries.map(function (elem) { return elem.name }).join(', ')
+        });
+      }
+
+      if($scope.details.spoken_languages && $scope.details.spoken_languages.length > 0) {
+        $scope.sidebarDetails.push({
+          label: 'Spoken languages',
+          value: $scope.details.spoken_languages.map(function (elem) { return elem.name }).join(', ')
+        });
+      }
+
+      if($scope.details.budget) {
+        $scope.sidebarDetails.push({
+          label: 'Budget',
+          value: '$'+$scope.details.budget.toString().replace(/(\d{1,3})(?=(?:\d{3})+$)/g,"$1,")
+        });
+      }
+
+      if($scope.details.revenue) {
+        $scope.sidebarDetails.push({
+          label: 'Revenue',
+          value: '$'+$scope.details.revenue.toString().replace(/(\d{1,3})(?=(?:\d{3})+$)/g,"$1,")
+        });
+      }
+
     });
 
     // Called when a external URL needs to be trusted
@@ -96,11 +173,34 @@ angular.module('omdbApp')
       return $sce.trustAsResourceUrl(src);
     };
 
+    // Show only the shortened overview (if shortened)
     $scope.showFullOverview = false;
+
+    // Called when the full overview should be shown
     $scope.toggleFullOverview = function () {
       $scope.showFullOverview = !$scope.showFullOverview;
     };
 
+    // Show only the shortened overview (if shortened)
+    $scope.showFullOverview = false;
+
+    // Called when the full overview should be shown
+    $scope.toggleFullOverview = function () {
+      $scope.showFullOverview = !$scope.showFullOverview;
+    };
+
+    $scope.sidebarDetails = [];
+
+    // Show only a few sidebar details
+    $scope.showFullDetailsSidebar = false;
+
+    // Called when all sidebar details should be shown
+    $scope.toggleFullDetailsSidebar = function () {
+      $scope.showFullDetailsSidebar = !$scope.showFullDetailsSidebar;
+    };
+
+
+    // Looping function to show all backdrops
     $scope.changeBackdrop = function () {
       $timeout(function () {
         if($scope.backdropIndex < $scope.backdrops.length-1) {
@@ -112,6 +212,7 @@ angular.module('omdbApp')
       }, 12000);
     };
 
+    // Show previous backdrop
     $scope.prevBackdrop = function () {
       if($scope.backdropIndex > 0) {
         $scope.backdropIndex--;
@@ -120,6 +221,7 @@ angular.module('omdbApp')
       }
     };
 
+    // Show next backdrop
     $scope.nextBackdrop = function () {
       if($scope.backdropIndex < $scope.backdrops.length-1) {
         $scope.backdropIndex++;
@@ -129,6 +231,7 @@ angular.module('omdbApp')
     };
 
     $scope.$on('$destroy', function () {
+      // When scope gets destroyed, we should make the menu/header normal again and cancel all timers
       $rootScope.translucentMenu = false;
       $timeout.cancel();
     });

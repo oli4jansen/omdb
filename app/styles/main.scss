@@ -13,7 +13,7 @@
   color: #4C4E5F;
 }
 
-body { line-height: 26px; width: 100%; background-color: #eee; }
+body { line-height: 26px; width: 100%; background-color: #eee; min-width: 750px; }
 
 p { font-size: 17px; line-height: 28px; }
 h2 { font-weight: 300; font-size: 35px; line-height: 40px; }
@@ -324,7 +324,7 @@ input[type=text] {
     width: 100%;
     left: 0;
     top: 0;
-    background-color: rgba(26, 35, 126, .35);
+    background-color: rgba(34, 37, 61, 0.6);
     background-size: cover;
     background-position: top center;
     background-blend-mode: darken;
@@ -338,11 +338,11 @@ input[type=text] {
   }
   .backdrop-controls {
     position: absolute;
-    right: 20px;
-    bottom: 20px;
+    right: 25px;
+    bottom: 25px;
     z-index: 99999;
     font-size: 20px;
-    background-color: rgba(255,255,255,0.35);
+    background-color: rgba(255,255,255,0.4);
     border-radius: 3px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.16);
     -webkit-transition: .3s;
@@ -363,6 +363,7 @@ input[type=text] {
       }
       &:hover {
         background-color: rgba(0,0,0,0.1);
+        color: #5677fc;
       }
     }
   }
@@ -438,11 +439,50 @@ input[type=text] {
       line-height: 30px;
       text-shadow: 1px 1px 1px rgba(0,0,0,0.36);
     }
+    .external {
+      position: relative;
+      cursor: default;
+      margin: 15px 0 0;
+      background-color: rgba(255,255,255,0.4);
+      padding: 0 5px 0 45px;
+      -webkit-transition: .3s;
+      &:hover {
+        background-color: white;
+        a, i {
+          color: #4C4E5F;
+        }
+      }
+      a {
+        display: inline-block;
+        color: white;
+        text-decoration: none;
+        padding: 5px 15px;
+        border-left: 1px solid rgba(255,255,255,0.25);
+        -webkit-transition: .3s;
+        &:hover {
+          color: #5677fc;
+          background-color: rgba(0,0,0,0.1);
+        }
+      }
+      i {
+        position: absolute;
+        top: 0;
+        left: 15px;
+        font-size: 25px;
+        line-height: 36px;
+        color: white;
+        -webkit-transition: .3s;
+      }
+    }
   }
 }
 
 .details-content {
   padding: 25px;
+  h5, p {
+    padding-left: 0;
+    padding-bottom: 10px;
+  }
   table {
     width: 100%;
     tr {
@@ -474,7 +514,8 @@ input[type=text] {
     display: inline-block;
     vertical-align: top;
     zoom: 1;
-    width: 10% * $i
+    width: 10% * $i;
+    padding: 0 15px 0 0;
   }
 }
 

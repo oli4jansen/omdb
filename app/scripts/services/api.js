@@ -63,6 +63,12 @@ angular.module('omdbApp')
       },
 
       tv: {
+        id: function (id, callback) {
+          factory.simpleRequest('tv/'+id, callback, {
+            append_to_response: 'credits,images,similar,videos'
+          });
+        },
+
         popular: function (callback) {
           factory.simpleRequest('tv/popular', callback);
         },
