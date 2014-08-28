@@ -13,7 +13,7 @@
   color: #4C4E5F;
 }
 
-body { padding-top: 75px; line-height: 26px; width: 100%; background-color: #eee; }
+body { line-height: 26px; width: 100%; background-color: #eee; }
 
 p { font-size: 17px; line-height: 28px; }
 h2 { font-weight: 300; font-size: 35px; line-height: 40px; }
@@ -43,6 +43,9 @@ input[type=text] {
   display: block;
   text-align: center;
 }
+.button-holder {
+  padding: 10px 15px;
+}
 .button {
   display: inline-block;
   padding: 5px 20px;
@@ -55,8 +58,21 @@ input[type=text] {
   font-weight: bold;
   cursor: pointer;
   margin: 15px 10px;
+  text-decoration: none;
+  position: relative;
   * {
     color: #5677fc;
+  }
+  &.icon-right {
+    padding-right: 45px; 
+    i {
+      position: absolute;
+      right: 15px;
+      top: 0;
+      font-size: 24px;
+      width: 20px;
+      line-height: 36px;
+    }
   }
 }
 
@@ -68,7 +84,7 @@ input[type=text] {
 }
 
 .header {
-  position: absolute;
+  position: relative;
   display: block;
   top: 0;
   left: 0;
@@ -106,6 +122,7 @@ input[type=text] {
     margin: 0 auto;
     max-width: 1000px;
     padding: 0 20px;
+    position: relative;
     input {
       display: block;
       position: absolute;
@@ -140,6 +157,7 @@ input[type=text] {
       margin-left: -250px;
       box-shadow: 0 5px 16px rgba(0,0,0,0.36);
       text-align: left;
+      z-index: 9999999999;
       -webkit-transition: .15s;
       &.show { display: block; }
       h5 { margin-bottom: 5px; }
@@ -187,7 +205,7 @@ input[type=text] {
   &.item-poster {
     display: inline-block;
     width: 200px;
-    min-height: 306px;
+    min-height: 362px;
 
     position: relative;
     vertical-align: top;
@@ -207,16 +225,40 @@ input[type=text] {
       background-position: center;
       background-size: cover;
       z-index: 0;
-      background-color: #303f9f;
+      background-color: rgba(48, 63, 159, 0.95);
+      z-index: 999;
+    }
+    &:after {
+      content: '?';
+      display: block;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgb(48, 63, 159);
+      color: white;
+      font-size: 120px;
+      padding: 60px 10px 0;
+      text-align: center;
+      z-index: 0;
+      box-sizing: border-box;
     }
     .info {
       display: block;
-      position: relative;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #fff;
+      color: #5677fc;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.36);
       padding: 15px 15px;
       font-size: 16px;
       overflow: hidden;
       white-space: normal;
-
+      z-index: 9999;
+      span { color: #5677fc; }
     }
     &:hover {
       box-shadow: 0 4px 16px 1px rgba(0,0,0,0.25);

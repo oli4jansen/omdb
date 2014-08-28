@@ -1,43 +1,28 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name omdbApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the omdbApp
- */
 angular.module('omdbApp')
-  .controller('HomeCtrl', function ($scope, $rootScope, $http, $location, APIURL, APIKey) {
+  .controller('HomeCtrl', function ($scope, $rootScope, $http, $location, config, api) {
 
-    $scope.posterPath = $rootScope.config.images.base_url+$rootScope.config.images.poster_sizes[2];
+    // Base path for displaying images returned by the API
+    $scope.posterPath = config.getImagePath('poster', 2);
+    $scope.profilePath = config.getImagePath('profile', 2);
 
-  	$http({
-  	  method: 'GET',
-  	  url: APIURL+'movie/popular',
-      params: {
-        api_key: APIKey,
-      }
-    }).success(function (data) {
-      console.log(data);
-      $scope.popular = data.results;
-      $scope.popularCount = data.total_results;
-    }).error(function (data) {
-      console.log(data);
-    });
-
-  	$http({
-  	  method: 'GET',
-  	  url: APIURL+'movie/now_playing',
-      params: {
-        api_key: APIKey,
-      }
-    }).success(function (data) {
-      console.log(data);
+    // Get all movies now playing in theaters
+    api.movies.playing(function (data) {
       $scope.playing = data.results;
       $scope.playingCount = data.total_results;
-    }).error(function (data) {
-      console.log(data);
+    });
+
+    // Get all popular movies
+    api.movies.popular(function (data) {
+      $scope.popularMovies = data.results;
+      $scope.popularMoviesCount = data.total_results;
+    });
+
+    // Get all popular people
+    api.people.popular(function (data) {
+      $scope.popularPeople = data.results;
+      $scope.popularPeopleCount = data.total_results;
     });
 
   });

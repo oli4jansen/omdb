@@ -55,7 +55,7 @@
 	<a ng-href="#/title/{{title.id}}/{{title.media_type}}" ng-repeat="title in details.combined_credits.crew" class="item item-poster">
 		<div class="background" ng-style="{ 'background-image': 'url('+posterPath + title.poster_path+')' }"></div>
 		<div class="info">
-			{{title.title}}<br>
+			{{title.title || title.name}}<br>
 			<small>{{title.job}}</small>
 		</div>
 	</a>

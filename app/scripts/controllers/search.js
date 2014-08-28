@@ -8,7 +8,7 @@
  * Controller of the omdbApp
  */
 angular.module('omdbApp')
-  .controller('SearchCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $anchorScroll, APIKey, APIURL) {
+  .controller('SearchCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $anchorScroll, config, APIKey, APIURL) {
 
   	if(!$routeParams.query) {
   	  $location.path('');
@@ -16,10 +16,8 @@ angular.module('omdbApp')
       $rootScope.query = $routeParams.query;
     }
 
-    console.log($rootScope.config);
-
-    $scope.posterPath = $rootScope.config.images.base_url+$rootScope.config.images.poster_sizes[1];
-    $scope.profilePath = $rootScope.config.images.base_url+$rootScope.config.images.profile_sizes[1];
+    $scope.posterPath = config.getConfig().images.base_url+config.getConfig().images.poster_sizes[1];
+    $scope.profilePath = config.getConfig().images.base_url+config.getConfig().images.profile_sizes[1];
 
     $scope.movies = [];
     $scope.people = [];

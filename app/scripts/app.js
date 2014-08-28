@@ -11,11 +11,9 @@
 angular
   .module('omdbApp', [
     'ngAnimate',
-    'ngCookies',
     'ngResource',
     'ngRoute'
-  ])
-  .config(function ($routeProvider) {
+  ]).config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/home.html',
@@ -26,12 +24,12 @@ angular
         controller: 'SearchCtrl'
       })
       .when('/title/:id/:type', {
-        templateUrl: 'views/details-movie.html',
-        controller: 'DetailsMovieCtrl'
+        templateUrl: 'views/details-title.html',
+        controller: 'DetailsTitleCtrl'
       })
       .when('/name/:id', {
-        templateUrl: 'views/details-person.html',
-        controller: 'DetailsPersonCtrl'
+        templateUrl: 'views/details-name.html',
+        controller: 'DetailsNameCtrl'
       })
       .otherwise({
         redirectTo: '/'

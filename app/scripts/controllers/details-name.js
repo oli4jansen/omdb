@@ -8,15 +8,15 @@
  * Controller of the omdbApp
  */
 angular.module('omdbApp')
-  .controller('DetailsPersonCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $timeout, APIKey, APIURL) {
+  .controller('DetailsNameCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $timeout, config, APIKey, APIURL) {
 
   	if(!$routeParams.id) {
   	  $location.path('');
     }
 
-    $scope.backdropPath = $rootScope.config.images.base_url+'original';
-    $scope.posterPath = $rootScope.config.images.base_url+'original';
-    $scope.profilePath = $rootScope.config.images.base_url+$rootScope.config.images.profile_sizes[1];
+    $scope.backdropPath = config.getConfig().images.base_url+'original';
+    $scope.posterPath = config.getConfig().images.base_url+'original';
+    $scope.profilePath = config.getConfig().images.base_url+config.getConfig().images.profile_sizes[1];
 
   	$http({
   	  method: 'GET',

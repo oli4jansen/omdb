@@ -1,6 +1,6 @@
 // Karma configuration
 // http://karma-runner.github.io/0.12/config/configuration-file.html
-// Generated on 2014-08-25 using
+// Generated on 2014-08-23 using
 // generator-karma 0.8.3
 
 module.exports = function(config) {
@@ -21,7 +21,6 @@ module.exports = function(config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/angular-animate/angular-animate.js',
-      'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-resource/angular-resource.js',
       'bower_components/angular-route/angular-route.js',
       'app/scripts/**/*.js',
@@ -34,6 +33,8 @@ module.exports = function(config) {
 
     // web server port
     port: 8080,
+    // en de hostname WANT MIJN COMPUTER DOET RAAR
+    hostname: '0.0.0.0',
 
     // Start these browsers, currently available:
     // - Chrome
@@ -44,12 +45,12 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      'PhantomJS'
+      'Chrome'
     ],
 
     // Which plugins to enable
     plugins: [
-      'karma-phantomjs-launcher',
+      'karma-chrome-launcher',
       'karma-jasmine'
     ],
 

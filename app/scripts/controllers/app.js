@@ -1,136 +1,90 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name omdbApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the omdbApp
- */
 angular.module('omdbApp')
-  .controller('AppCtrl', function ($scope, $rootScope, $location, $http, $timeout, $window, APIURL, APIKey) {
+  .controller('AppCtrl', function ($scope, $rootScope, $location, $http, $timeout, $window, config, api) {
 
-  	/*
-     * Configuratie ophalen uit localstorage
-     */
-  	// TODO: checken of de cache vernieuwd moet worden
-  	$rootScope.config = localStorage.getItem('configuration');
-  	try {
-  		$rootScope.config = JSON.parse($rootScope.config);
-      console.log($rootScope.config);
-  	}catch (err) {
-  		console.log(err);
-  	}
+    // Base path for displaying images returned by the API in autocomplete
+    $scope.posterPath = config.getImagePath('poster', 0);
+    $scope.profilePath = config.getImagePath('profile', 0);
 
-  	// Nieuwe config ophalen, als dat nodig is
-  	if(!$rootScope.config || $rootScope.config === undefined || $rootScope.config === null) {
-	  	$http({
-	  	  method: 'GET',
-	  	  url: APIURL+'configuration',
-	      params: {
-	        api_key: APIKey,
-	      }
-	    }).success(function (data) {
-	      localStorage.setItem('configuration', JSON.stringify(data));
-	      $rootScope.config = data;
-        $window.location.reload();
-	    }).error(function (data) {
-	      console.log(data);
-	      alert('error getting config');
-	    });
-  	}else{
-      $scope.posterPath = $rootScope.config.images.base_url+$rootScope.config.images.poster_sizes[0];
-      $scope.profilePath = $rootScope.config.images.base_url+$rootScope.config.images.profile_sizes[0];
-    }
-
-    /*
-     * Autocomplete shizzle
-     */
-
+    // Dont show autocomplete by default
     $scope.showAutocomplete = false;
 
+    // Autocomplete starts empty
     $scope.autocompleteMovies = [];
     $scope.autocompleteTvShows = [];
     $scope.autocompletePeople = [];
 
-  	$scope.search = function () {
-  	  $location.path('search/'+$scope.query);
-      $scope.hideAutocomplete();
-  	};
+    // Activate autocomplete
+    $scope.activateAutocomplete = function () {
+      $scope.showAutocomplete = true;
+      autocomplete();
+    };
 
+    // Give the user some time to click on a link (between blur and click-end)
     $scope.hideAutocomplete = function () {
       $timeout(function () {
         $scope.showAutocomplete = false;
       }, 150);
     };
 
-    $scope.activateAutocomplete = function () {
-      console.log('Autocomplete activated');
-      $scope.showAutocomplete = true;
-      autocomplete();
-    };
-
+    // Save the previous query for comparison purposes 
     var oldQuery = $scope.query;
+
+    // Autocomplete function
+    // This function will execute once every second to lower the amount of API requests (little bit dirty, I know, some kind of caching would be 100x better)
     var autocomplete = function() {
       $timeout(function () {
+        // Compare the current query with the query from one second ago
         if(oldQuery !== $scope.query) {
+          // Update the 'old query' with the current value for use in the future (1 sec from now)
           oldQuery = $scope.query;
 
+          // Don't respond to short queries
           if($scope.query.length > 2) {
 
-            $http({
-              method: 'GET',
-              url: APIURL+'search/movie',
-              params: {
-                api_key: APIKey,
-                query: $scope.query,
-                search_type: 'ngram'
-              }
-            }).success(function (data) {
+            // Search for movie suggestions
+            api.movies.autocomplete($scope.query, function (data) {
               $scope.autocompleteMovies = data.results.splice(0,3);
-            }).error(function (data) { $scope.autocompleteMovies = [] });
+            });
 
-            $http({
-              method: 'GET',
-              url: APIURL+'search/person',
-              params: {
-                api_key: APIKey,
-                query: $scope.query,
-                search_type: 'ngram'
-              }
-            }).success(function (data) {
+            // Search for person suggestions
+            api.people.autocomplete($scope.query, function (data) {
               $scope.autocompletePeople = data.results.splice(0,3);
-            }).error(function (data) { $scope.autocompletePeople = [] });
+            });
 
-            $http({
-              method: 'GET',
-              url: APIURL+'search/tv',
-              params: {
-                api_key: APIKey,
-                query: $scope.query,
-                search_type: 'ngram'
-              }
-            }).success(function (data) {
+            // Search for tv show suggestions
+            api.tv.autocomplete($scope.query, function (data) {
               $scope.autocompleteTvShows = data.results.splice(0,3);
-            }).error(function (data) { $scope.autocompleteTvShows = [] });
+            });
 
           }else{
 
+            // Short queries shall not be answered
             $scope.autocompleteMovies  = [];
             $scope.autocompleteTvShows = [];
             $scope.autocompletePeople  = [];
 
           }
         }
+
+        // If the autocomplete is still visible...
         if($scope.showAutocomplete) {
+          // ..we should still watch the querie variable
           autocomplete();
-        }else{
-          console.log('Autocomplete disabled');
         }
       }, 1000);
-    }
+    };
+
+    // Called when form is submitted
+    $scope.search = function () {
+      $location.path('search/'+$scope.query);
+      $scope.hideAutocomplete();
+    };
+
 
   	$rootScope.$watch('query', function () {
+      // Mirror query to the rootScope so everyone can reach it
   		$scope.query = $rootScope.query;
   	});
 

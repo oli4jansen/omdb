@@ -6,7 +6,7 @@
 	<div ng-repeat="movie in movies" class="item item-poster item-poster-small" ng-click="details('title',movie,'movie')">
 		<div class="background" ng-style="{ 'background-image': 'url('+posterPath + movie.poster_path+')' }"></div>
 		<div class="info">
-			{{movie.title}}
+			{{movie.title}} ({{movie.release_date.substr(0,4)}})
 		</div>
 	</div>
 </div>

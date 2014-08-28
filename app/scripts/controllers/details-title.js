@@ -8,7 +8,7 @@
  * Controller of the omdbApp
  */
 angular.module('omdbApp')
-  .controller('DetailsMovieCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $timeout, $sce, APIKey, APIURL) {
+  .controller('DetailsTitleCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $timeout, $sce, config, APIKey, APIURL) {
 
   	if(!$routeParams.id) {
   	  $location.path('');
@@ -20,9 +20,9 @@ angular.module('omdbApp')
       $scope.type = $routeParams.type;
     }
 
-    $scope.backdropPath = $rootScope.config.images.base_url+'original';
-    $scope.posterPath = $rootScope.config.images.base_url+'original';
-    $scope.profilePath = $rootScope.config.images.base_url+$rootScope.config.images.profile_sizes[1];
+    $scope.backdropPath = config.getConfig().images.base_url+'original';
+    $scope.posterPath = config.getConfig().images.base_url+'original';
+    $scope.profilePath = config.getConfig().images.base_url+config.getConfig().images.profile_sizes[1];
 
   	$http({
   	  method: 'GET',

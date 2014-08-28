@@ -1,0 +1,1 @@
+De laatst gecomprimeerde distributie van de app staat hier online: http://oli4jansen.github.io/omdb/#/

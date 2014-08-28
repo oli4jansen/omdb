@@ -35,14 +35,14 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+//        tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test'/*, 'karma'*/]
+        tasks: ['karma']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -111,24 +111,28 @@ module.exports = function (grunt) {
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
-    jshint: {
+/*    jshint: {
       options: {
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish')
       },
       all: {
+        options: {
+          camelcase: false,
+          asi: true
+        },
         src: [
-          'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
-        ]
+          'Gruntfile.js',*/
+//          '<%= yeoman.app %>/scripts/{,*/}*.js'
+/*        ]
       },
       test: {
         options: {
           jshintrc: 'test/.jshintrc'
-        },
-        src: ['test/spec/{,*/}*.js']
-      }
-    },
+        },*/
+//        src: ['test/spec/{,*/}*.js']
+/*      }
+    },*/
 
     // Empties folders to start fresh
     clean: {
@@ -367,9 +371,9 @@ module.exports = function (grunt) {
       server: [
         'compass:server'
       ],
-/*      test: [
+      test: [
         'compass'
-      ],*/
+      ],
       dist: [
         'compass:dist',
         'imagemin',
@@ -378,12 +382,12 @@ module.exports = function (grunt) {
     },
 
     // Test settings
-/*    karma: {
+    karma: {
       unit: {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    }*/
+    }
   });
 
 
@@ -433,7 +437,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'newer:jshint',
+//    'newer:jshint',
     'test',
     'build'
   ]);
