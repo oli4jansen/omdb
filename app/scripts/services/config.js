@@ -52,7 +52,7 @@ angular.module('omdbApp')
       	if(size !== 'original') {
       	  imageTypePath = config.images[imageType+'_sizes'][size];
       	}else{
-    	  imageTypePath = config.images[imageType+'_sizes']+'original';
+    	  imageTypePath = 'original';
       	}
       	return config.images.base_url+imageTypePath;
       }

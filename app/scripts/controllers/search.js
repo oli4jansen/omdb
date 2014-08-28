@@ -1,12 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name omdbApp.controller:AboutCtrl
- * @description
- * # AboutCtrl
- * Controller of the omdbApp
- */
 angular.module('omdbApp')
   .controller('SearchCtrl', function ($scope, $rootScope, $routeParams, $location, $http, config, api) {
 

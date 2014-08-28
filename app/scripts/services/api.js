@@ -36,6 +36,12 @@ angular.module('omdbApp')
        */
 
       movies: {
+        id: function (id, callback) {
+          factory.simpleRequest('movie/'+id, callback, {
+            append_to_response: 'credits,images,similar,videos'
+          });
+        },
+
       	playing: function (callback) {
           factory.simpleRequest('movie/now_playing', callback);
       	},

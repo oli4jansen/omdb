@@ -8,7 +8,7 @@
 			<h1>{{details.title || details.name}}</h1>
 			<p ng-if="type === 'movie'">{{details.release_date}}<span ng-if="details.runtime"> - {{details.runtime}} minutes</span></p>
 			<p ng-if="type === 'tv'">{{details.seasons.length}} seasons<span ng-if="details.in_production"> - still in production</span></p>
-			<span class="stars"><i ng-repeat="star in stars track by $index" ng-class="{ 'ion-ios7-star': star === 2, 'ion-ios7-star-half': star === 1, 'ion-ios7-star-outline': star === 0 }"></i><i ng-if="halfStar" class="ion-ios7-star-half"></i></span>
+			<span class="stars"><i ng-repeat="star in stars track by $index" ng-class="{ 'ion-ios7-star': star === 2, 'ion-ios7-star-half': star === 1, 'ion-ios7-star-outline': star === 0 }"></i><i ng-if="halfStar" class="ion-ios7-star-half"></i> ({{details.vote_average}})</span>
 		</div>
 	</div>
 </div>
