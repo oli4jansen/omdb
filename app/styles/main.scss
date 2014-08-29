@@ -60,6 +60,7 @@ input[type=text] {
   margin: 15px 10px;
   text-decoration: none;
   position: relative;
+  -webkit-transition: .3s;
   * {
     color: #5677fc;
   }
@@ -73,6 +74,10 @@ input[type=text] {
       width: 20px;
       line-height: 36px;
     }
+  }
+  &:hover {
+    background-color: rgb(220,220,220);
+    box-shadow: 0 5px 16px rgba(0,0,0,0.16);
   }
 }
 

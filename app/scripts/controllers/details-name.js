@@ -4,7 +4,12 @@ angular.module('omdbApp')
   .controller('DetailsNameCtrl', function ($scope, $rootScope, $routeParams, $location, $http, $timeout, config, api) {
 
     // We need an ID, else gtfo
-  	if(!$routeParams.id) $location.path('');
+    if(!$routeParams.id) $location.path('');
+    if(!$routeParams.type) {
+      $scope.type = 'person';
+    }else{
+      $scope.type = $routeParams.type;
+    }
 
     // Base path for displaying images returned by the API
     $scope.backdropPath = config.getImagePath('backdrop', 'original');

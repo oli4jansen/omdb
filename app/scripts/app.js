@@ -23,11 +23,11 @@ angular
         templateUrl: 'views/search.html',
         controller: 'SearchCtrl'
       })
-      .when('/title/:id/:type', {
+      .when('/title/:id/:type?', {
         templateUrl: 'views/details-title.html',
         controller: 'DetailsTitleCtrl'
       })
-      .when('/name/:id', {
+      .when('/name/:id/:type?', {
         templateUrl: 'views/details-name.html',
         controller: 'DetailsNameCtrl'
       })
