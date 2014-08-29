@@ -6,8 +6,11 @@
 	<div class="main-info-holder">
 		<div class="main-info">
 			<h1>{{details.name}}</h1>
-			<p>{{details.place_of_birth}}</p>
-			<p>{{details.birthday}}<span ng-if="details.deathday"> - {{details.deathday}}</span></p>
+			<div class="external button" ng-if="details.imdb_id || details.homepage">
+				<a ng-if="details.imdb_id" ng-href="http://www.imdb.com/name/{{details.imdb_id}}" target="_blank">IMDB</a>
+				<a ng-if="details.homepage" ng-href="{{details.homepage}}" target="_blank">Homepage</a>
+				<i class="ion-share"></i>
+			</div>
 		</div>
 	</div>
 </div>
@@ -18,11 +21,17 @@
 
 	<div class="details-content">
 		<div class="col-4">
+			<h5>Details</h5>
 			<table>
-				<tr ng-if="details.imdb_id"><td><b>IMDB page</b></td><td><a ng-href="http://www.imdb.com/name/{{details.imdb_id}}">{{details.name}}</a></td></tr>
-				<tr ng-if="details.homepage"><td><b>Homepage</b></td><td><a ng-href="{{details.homepage}}">{{details.homepage}}</a></td></tr>
+
+				<tr ng-repeat="detail in sidebarDetails track by $index" ng-if="$index < 4 || showFullDetailsSidebar">
+					<td><b>{{detail.label}}</b></td>
+					<td>{{detail.value}}</td>
+				</tr>
+
 			</table>
 		</div><div class="col-6">
+			<h5>Biography</h5>
 			<p ng-if="!showFullBio && details.biography.length > 775">{{details.biography.substr(0,750)}}...</p>
 			<p ng-if="showFullBio || details.biography.length < 776">{{details.biography}}</p>
 			

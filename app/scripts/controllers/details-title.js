@@ -183,22 +183,20 @@ angular.module('omdbApp')
 
     // Show only the shortened overview (if shortened)
     $scope.showFullOverview = false;
-
     // Called when the full overview should be shown
     $scope.toggleFullOverview = function () {
       $scope.showFullOverview = !$scope.showFullOverview;
     };
 
+    // Emty array to be filled with details about the title
     $scope.sidebarDetails = [];
 
     // Show only a few sidebar details
     $scope.showFullDetailsSidebar = false;
-
     // Called when all sidebar details should be shown
     $scope.toggleFullDetailsSidebar = function () {
       $scope.showFullDetailsSidebar = !$scope.showFullDetailsSidebar;
     };
-
 
     // Looping function to show all backdrops
     $scope.changeBackdrop = function () {

@@ -93,6 +93,12 @@ angular.module('omdbApp')
       },
 
       people: {
+        id: function (id, callback) {
+          factory.simpleRequest('person/'+id, callback, {
+            append_to_response: 'combined_credits,images,tagged_images'
+          });
+        },
+
         popular: function (callback) {
           factory.simpleRequest('person/popular', callback);
         },

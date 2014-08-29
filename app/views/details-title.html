@@ -1,8 +1,11 @@
 <div class="details-header" ng-class="{ 'details-header-small': backdrops.length === 0 }">
+	
 	<div class="background" ng-repeat="backdrop in backdrops track by $index" ng-style="{ 'background-image': 'url('+backdropPath+backdrop.file_path+')' }" ng-class="{ invisible: $index !== backdropIndex }"></div>
+
 	<div class="backdrop-controls" ng-if="backdrops.length > 1">
 		<i class="ion-ios7-arrow-back" ng-click="prevBackdrop()"></i><i class="ion-ios7-arrow-forward" ng-click="nextBackdrop()"></i>
 	</div>
+	
 	<div class="main-info-holder">
 		<div class="main-info">
 			<h1>{{details.title || details.name}}</h1>
@@ -14,6 +17,7 @@
 			</div>
 		</div>
 	</div>
+	
 </div>
 
 <div class="page-holder">
