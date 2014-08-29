@@ -27,6 +27,14 @@ angular
         templateUrl: 'views/details-title.html',
         controller: 'DetailsTitleCtrl'
       })
+      .when('/title/:id/tv/season/:seasonNumber', {
+        templateUrl: 'views/details-season.html',
+        controller: 'DetailsSeasonCtrl'
+      })
+      .when('/title/:id/tv/season/:seasonNumber/episode/:episodeNumber', {
+        templateUrl: 'views/details-episode.html',
+        controller: 'DetailsEpisodeCtrl'
+      })
       .when('/name/:id/:type?', {
         templateUrl: 'views/details-name.html',
         controller: 'DetailsNameCtrl'

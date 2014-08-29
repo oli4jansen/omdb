@@ -75,6 +75,20 @@
 	</a>
 </div>
 
+<div class="page-holder" ng-if="details.seasons && details.seasons.length > 0">
+	<h5>Seasons</h5>
+</div>
+
+<div class="item-scroller" ng-if="details.seasons && details.seasons.length > 0">
+	<a ng-href="#/title/{{details.id}}/tv/season/{{season.season_number}}" ng-repeat="season in details.seasons" class="item item-poster">
+		<div class="background" ng-style="{ 'background-image': 'url('+posterPath + season.poster_path+')' }"></div>
+		<div class="info">
+			Season {{season.season_number}}<br>
+			<small>{{season.air_date}}</small>
+		</div>
+	</a>
+</div>
+
 <div class="page-holder" ng-if="details.credits.crew.length > 0">
 	<h5>Crew members</h5>
 </div>

@@ -304,6 +304,30 @@ input[type=text] {
   }
 }
 
+.item-list {
+  position: relative;
+  display: block;
+  max-width: 900px;
+  margin: 10px auto;
+  padding: 10px 0;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16);
+  .item {
+    display: block;
+    padding: 10px 25px;
+    .info {
+      color: #5677fc;
+      .right {
+        float: right;
+      }
+    }
+    &:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+  }
+}
+
 .details-header {
   display: block;
   position: relative;
@@ -339,6 +363,15 @@ input[type=text] {
     -webkit-transition: .5s;
     &.invisible {
       opacity: 0;
+    }
+    &.blurred {
+      -webkit-filter: blur(5px);
+      opacity: .85;
+      background-color: rgba(50,50,50, 0.6);
+      height: 110%;
+      width: 110%;
+      left: -5%;
+      top: -5%;
     }
   }
   .backdrop-controls {
@@ -520,7 +553,10 @@ input[type=text] {
     vertical-align: top;
     zoom: 1;
     width: 10% * $i;
-    padding: 0 15px 0 0;
+    padding: 0 35px 0 0;
+    &:last-child {
+      padding-right: 0;
+    }
   }
 }
 

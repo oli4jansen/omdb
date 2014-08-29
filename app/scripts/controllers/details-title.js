@@ -110,10 +110,10 @@ angular.module('omdbApp')
         });
       }
 
-      if($scope.details.seasons && $scope.details.seasons.length > 0) {
+      if($scope.details.number_of_seasons) {
         $scope.sidebarDetails.push({
           label: 'Number of seasons',
-          value: $scope.details.seasons.length
+          value: $scope.details.number_of_seasons
         });
       }
 

@@ -68,6 +68,16 @@ angular.module('omdbApp')
             append_to_response: 'credits,images,similar,videos'
           });
         },
+        season: function (id, seasonNumber, callback) {
+          factory.simpleRequest('tv/'+id+'/season/'+seasonNumber, callback, {
+            append_to_response: 'images,videos'
+          });
+        },
+        episode: function (id, seasonNumber, episodeNumber, callback) {
+          factory.simpleRequest('tv/'+id+'/season/'+seasonNumber+'/episode/'+episodeNumber, callback, {
+            append_to_response: 'images,credits'
+          });
+        },
 
         popular: function (callback) {
           factory.simpleRequest('tv/popular', callback);
