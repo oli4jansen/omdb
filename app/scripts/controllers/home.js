@@ -25,4 +25,6 @@ angular.module('omdbApp')
       $scope.popularPeopleCount = data.total_results;
     });
 
+//    $scope.commands = commandSearch.getAllCommands();
+
   });

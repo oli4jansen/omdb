@@ -46,9 +46,11 @@ input[type=text] {
 .button-holder {
   padding: 10px 15px;
 }
-.button {
+.button, select {
   display: inline-block;
   padding: 5px 20px;
+  line-height: 26px;
+  border: 0;
   border-radius: 3px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.16);
   background-color: white;
@@ -60,6 +62,7 @@ input[type=text] {
   margin: 15px 10px;
   text-decoration: none;
   position: relative;
+  -webkit-appearance: none;
   -webkit-transition: .3s;
   * {
     color: #5677fc;
@@ -78,6 +81,17 @@ input[type=text] {
   &:hover {
     background-color: rgb(220,220,220);
     box-shadow: 0 5px 16px rgba(0,0,0,0.16);
+  }
+}
+
+select {
+  color: #4C4E5F;
+  background-image: url('../images/arrow-down.png');
+  background-position: right 15px center;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+  &:hover {
+    color: #5677fc;
   }
 }
 
@@ -125,7 +139,7 @@ input[type=text] {
   .inner-header {
     width: 100%;
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 1110px;
     padding: 0 20px;
     position: relative;
     input {
@@ -140,8 +154,6 @@ input[type=text] {
       margin-left: -250px;
       top: 43px;
       top: 10px;
-
-
       width: 500px;
     }
     .logo {
@@ -177,8 +189,9 @@ input[type=text] {
         line-height: 55px;
         height: 55px;
         vertical-align: top;
-        white-space: nowrap;
         overflow: hidden;
+        position: relative;
+        padding-right: 75px;
         .image {
           display: inline-block;
           line-height: 30px;
@@ -192,7 +205,25 @@ input[type=text] {
             width: auto;
           }
         }
-        &:hover {
+        .right {
+          display: block;
+          position: absolute;
+          right: 15px;
+          top: 19px;
+          text-transform: uppercase;
+          color: white;
+          font-size: 12px;
+          background-color: #5677fc;
+          border-radius: 3px;
+          padding: 3px 5px;
+          height: 16px;
+          margin:  0;
+          line-height: 12px;
+        }
+        * {
+          vertical-align: top;
+        }
+        &:hover, &.selected {
           background-color: rgba(0,0,0,0.1);
         }
       }
@@ -233,6 +264,23 @@ input[type=text] {
       background-color: rgba(48, 63, 159, 0.95);
       z-index: 999;
     }
+    .media_type {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 9999;
+      text-transform: uppercase;
+      color: white;
+      font-size: 12px;
+      background-color: #5677fc;
+      border-radius: 3px;
+      padding: 3px 5px;
+      height: 16px;
+      margin:  0;
+      line-height: 12px;
+      opacity: .5;
+      -webkit-transition: .3s;
+    }
     &:after {
       content: '?';
       display: block;
@@ -267,6 +315,7 @@ input[type=text] {
     }
     &:hover {
       box-shadow: 0 4px 16px 1px rgba(0,0,0,0.25);
+      .media_type { opacity: 1; }
     }
     &.item-poster-small {
       width: 150px;
@@ -280,9 +329,12 @@ input[type=text] {
 }
 
 .item-holder {
+  text-align: left;
+  max-width: 1110px;
+  margin: 0 auto;
   &.item-poster-holder {
     display: block;
-    max-width: 1000px;
+    max-width: 1110px;
     padding: 0 10px;
     margin: 0 auto;
     text-align: center;
@@ -294,7 +346,7 @@ input[type=text] {
   white-space: nowrap;
   overflow-x: scroll;
   display: block;
-  max-width: 1000px;
+  max-width: 1110px;
   margin: 0 auto;
   padding: 0 20px 15px;
   cursor: all-scroll;
@@ -307,7 +359,7 @@ input[type=text] {
 .item-list {
   position: relative;
   display: block;
-  max-width: 900px;
+  max-width: 1010px;
   margin: 10px auto;
   padding: 10px 0;
   background-color: white;
@@ -409,7 +461,7 @@ input[type=text] {
 
 .page-holder {
   position: relative;
-  max-width: 1000px;
+  max-width: 1110px;
   width: 100%;
   margin: 0 auto;
   p { padding: 0 25px; }
@@ -432,14 +484,14 @@ input[type=text] {
 }
 
 .main-info-holder {
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1110px) {
     width: 100%;
     position: absolute;
     left: 0;
     bottom: 0;
   }
-  @media screen and (min-width: 1000px) {
-    width: 1000px;
+  @media screen and (min-width: 1110px) {
+    width: 1110px;
     position: absolute;
     left: 50%;
     margin-left: -500px;
@@ -449,13 +501,16 @@ input[type=text] {
     display: block;
     position: absolute;
     left: 0;
-    padding-left: 255px;
+    padding-left: 205px;
     padding-right: 25px;
     padding-bottom: 25px;
     bottom: 0px;
     z-index: 999;
     width: 100%;
     z-index: 9999;
+    @media screen and (max-width: 1110px) {
+      padding-left: 255px;
+    }
     * { color: white; }
     h1 {
       font-weight: 300;
@@ -568,7 +623,7 @@ input[type=text] {
   max-width: 950px;
   margin: 10px auto 25px;
   display: block;
-  @media screen and (min-width: 1000px) {
+  @media screen and (min-width: 1110px) {
     padding-bottom: 424px;
   }
   iframe {
@@ -577,6 +632,23 @@ input[type=text] {
     left: 0;
     width: 100% !important;
     height: 100% !important;
+  }
+}
+
+.no-results-alert {
+  padding: 20px 0 80px;
+  font-size: 26px;
+  text-align: center;
+  span {
+    display: inline-block;
+    background-color: rgba(0,0,0,0.15);
+    border-radius: 3px;
+    padding: 5px 10px;
+  }
+  i {
+    font-size: 160px;
+    display: block;
+    text-align: center;
   }
 }
 

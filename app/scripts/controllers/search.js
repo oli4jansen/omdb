@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('omdbApp')
-  .controller('SearchCtrl', function ($scope, $rootScope, $routeParams, $location, $http, config, api) {
+  .controller('SearchCtrl', function ($scope, $rootScope, $routeParams, $location, $http, config, api, commandSearch) {
 
   	if(!$routeParams.query) {
       // If there is no query, we can not search
@@ -22,65 +22,50 @@ angular.module('omdbApp')
     $scope.results = [];
 
     // Search for movies
-    api.movies.search($routeParams.query, function (data) {
-      // Calculate combined popularity
-      var moviesPopularity = 0;
-      data.results.forEach(function (movie) {
-        moviesPopularity = moviesPopularity + movie.popularity;
-      }); 
-
-      var movies = {
-        results: data.results,
-        title: 'Movies',
-        typeDetails: 'title',
-        typeMedia: 'movie',
-        popularity: moviesPopularity
-      };
-      $scope.moviesCount = data.total_results;
-
-      $scope.results.push(movies);
-
+    api.multi.search($routeParams.query, function (data) {
+      $scope.resultCount = data.total_results;
+      for(var i = 0;i<data.results.length;i++) {
+        switch(data.results[i].media_type) {
+          case 'movie':
+            data.results[i].typeDetails = 'title';
+            data.results[i].typeMedia = 'movie';
+            break;
+          case 'tv':
+            data.results[i].typeDetails = 'title';
+            data.results[i].typeMedia = 'tv';
+            break;
+          case 'person':
+            data.results[i].typeDetails = 'name';
+            data.results[i].typeMedia = '';
+            break;
+        }
+      }
+      $scope.results = data.results;
     });
 
-    // Search for tv shows
-    api.tv.search($routeParams.query, function (data) {
-      // Calculate combined popularity
-      var tvShowsPopularity = 0;
-      data.results.forEach(function (tvShow) {
-        tvShowsPopularity = tvShowsPopularity + tvShow.popularity;
-      }); 
+    commandSearch.findAndExecuteCommand($routeParams.query, function (data) {
+      if(!data) return;
 
-      var tvShows = {
-        results: data.results,
-        title: 'TV Shows',
-        typeDetails: 'title',
-        typeMedia: 'tv',
-        popularity: tvShowsPopularity
-      };
-      $scope.tvShowsCount = data.total_results;
-
-      $scope.results.push(tvShows);
-
-    });
-
-    // Search for people
-    api.people.search($routeParams.query, function (data) {
-      // Calculate combined popularity
-      var peoplePopularity = 0;
-      data.results.forEach(function (person) {
-        peoplePopularity = peoplePopularity + person.popularity;
-      }); 
-
-      var people = {
-        results: data.results,
-        title: 'People',
-        typeDetails: 'name',
-        typeMedia: '',
-        popularity: peoplePopularity
-      };
-      $scope.peopleCount = data.total_results;
-
-      $scope.results.push(people);
+      if(data.results.length) {
+        switch(data.type) {
+          case 'tv':
+            $scope.results = data.results;
+            $scope.typeDetails = 'title';
+            $scope.typeMedia = 'tv';
+            break;
+          case 'people':
+            $scope.results = data.results;
+            $scope.typeDetails = 'name';
+            $scope.typeMedia = '';
+            break;
+          case 'movies':
+          default:
+            $scope.results = data.results;
+            $scope.typeDetails = 'title';
+            $scope.typeMedia = 'movie';
+            break;
+        };
+      }
 
     });
 

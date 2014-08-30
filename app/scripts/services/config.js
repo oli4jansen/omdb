@@ -9,7 +9,7 @@ angular.module('omdbApp')
     var factory = {
       // Checks if a config object is stored in the localStorage and if not, gets one from the API and stores it
       loadConfig: function () {
-      	console.log('Load config called');
+//      	console.log('Load config called');
 	  	var tempConfig = localStorage.getItem('configuration');
 
 	  	try {
@@ -29,14 +29,14 @@ angular.module('omdbApp')
 		      api_key: APIKey,
 		    }
 		  }).success(function (data) {
-		  	console.log('Got config from API and put in storage');
+//		  	console.log('Got config from API and put in storage');
 		    localStorage.setItem('configuration', JSON.stringify(data));
 		    config = data;
 		  }).error(function (data) {
 		    console.log(data);
 	      });
 	    }else{
-	      console.log('Got config from storage');
+//	      console.log('Got config from storage');
 	      config = tempConfig;
 	    }
       },

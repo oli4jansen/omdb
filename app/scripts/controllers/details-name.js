@@ -32,21 +32,23 @@ angular.module('omdbApp')
       // Start with an empty array of backdrops
       $scope.backdrops = [];
 
-      // Filter backdrops from tagged_images
-      data.tagged_images.results.forEach (function (image) {
-        if(image.image_type === 'backdrop') {
-          $scope.backdrops.push(image);
+      if(data.tagged_images) {
+        // Filter backdrops from tagged_images
+        data.tagged_images.results.forEach (function (image) {
+          if(image.image_type === 'backdrop') {
+            $scope.backdrops.push(image);
+          }
+        });
+
+        // If there are backdrops to be shown, make the menu/header translucent
+        if($scope.backdrops.length !== 0) {
+          $rootScope.translucentMenu = true;
         }
-      });
 
-      // If there are backdrops to be shown, make the menu/header translucent
-      if($scope.backdrops.length !== 0) {
-        $rootScope.translucentMenu = true;
+        // Start at zero
+        $scope.backdropIndex = 0;
+        $scope.changeBackdrop();
       }
-
-      // Start at zero
-      $scope.backdropIndex = 0;
-      $scope.changeBackdrop();
 
       // Add details to the sidebar
 

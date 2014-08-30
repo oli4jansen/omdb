@@ -23,23 +23,33 @@
       <div class="inner-header">
         <a href="#/"><img src="images/logo-white-110.png" class="logo"></a>
         <form ng-submit="search()">
-          <input type="text" placeholder="Search for movies, TV shows or people..." ng-model="query" ng-focus="activateAutocomplete()" ng-blur="hideAutocomplete()">
-          <div ng-class="{ show: showAutocomplete && (autocompleteMovies.length > 0 || autocompleteTvShows.length > 0 || autocompletePeople.length > 0) }" class="autocomplete">
+          <input type="text" placeholder="Search for movies, TV shows or people..." ng-model="query" ng-focus="activateAutocomplete()" ng-blur="hideAutocomplete()" ng-arrow-up="arrowUp()" ng-arrow-down="arrowDown()" ng-arrow-left-right="resetSelector()" ng-enter="enter()" ng-disabled="searchDisabled">
+
+          <div ng-class="{ show: showAutocomplete && (autocompleteResults.length > 0 || command) }" class="autocomplete">
+
+            <h5 ng-if="command">{{command.title}}...</h5>
+            <a ng-if="command" ng-repeat="suggestion in command.results" ng-click="commandClick(command.title+' '+suggestion[command.subjectIdentifier])">{{suggestion[command.subjectIdentifier]}}</a>
+
+            <a ng-repeat="item in autocompleteResults track by $index" ng-href="#/{{item.typeDetails}}/{{item.id}}/{{item.typeMedia}}" ng-class="{ selected: selected === $index }">
+                <div class="image"><img ng-if="item.poster_path" ng-src="{{posterPath+item.poster_path}}"><img ng-if="item.profile_path" ng-src="{{profilePath+item.profile_path}}"></div>
+                <span class="right">{{item.media_type}}</span>
+                {{item.title || item.name}} <span ng-if="item.release_date">({{item.release_date.substr(0,4)}})</span>
+            </a>
 
             <h5 ng-if="autocompleteMovies.length > 0">Movies</h5>
-            <a ng-repeat="movie in autocompleteMovies" ng-href="#/title/{{movie.id}}/movie">
+            <a ng-repeat="movie in autocompleteMovies track by $index" ng-href="#/title/{{movie.id}}/movie" ng-class="{ selected: selected === $index }">
                 <div class="image"><img ng-if="movie.poster_path" ng-src="{{posterPath+movie.poster_path}}"></div>
                 {{movie.title}} ({{movie.release_date.substr(0,4)}})
             </a>
 
             <h5 ng-if="autocompletePeople.length > 0">People</h5>
-            <a ng-repeat="person in autocompletePeople" ng-href="#/name/{{person.id}}">
+            <a ng-repeat="person in autocompletePeople" ng-href="#/name/{{person.id}}" ng-class="{ selected: selected === $index+autocompleteMovies.length }">
                 <div class="image"><img ng-if="person.profile_path" ng-src="{{profilePath+person.profile_path}}"></div>
                 {{person.name}}
             </a>
 
             <h5 ng-if="autocompleteTvShows.length > 0">TV Shows</h5>
-            <a ng-repeat="tvShow in autocompleteTvShows" ng-href="#/title/{{tvShow.id}}/tv">
+            <a ng-repeat="tvShow in autocompleteTvShows" ng-href="#/title/{{tvShow.id}}/tv" ng-class="{ selected: selected === $index+autocompleteMovies.length+autocompletePeople.length }">
                 <div class="image"><img ng-if="tvShow.poster_path" ng-src="{{posterPath+tvShow.poster_path}}"></div>
                 {{tvShow.name}}
             </a>
@@ -79,6 +89,7 @@
         <script src="scripts/services/anchorScroll.js"></script>
         <script src="scripts/services/config.js"></script>
         <script src="scripts/services/api.js"></script>
+        <script src="scripts/services/command-search.js"></script>
 
         <script src="scripts/controllers/app.js"></script>
         <script src="scripts/controllers/home.js"></script>

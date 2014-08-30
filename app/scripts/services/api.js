@@ -41,12 +41,20 @@ angular.module('omdbApp')
             append_to_response: 'credits,images,similar,videos'
           });
         },
+        credits: function (id, callback) {
+          factory.simpleRequest('movie/'+id, callback, {
+            append_to_response: 'credits'
+          });
+        },
 
       	playing: function (callback) {
           factory.simpleRequest('movie/now_playing', callback);
       	},
         popular: function (callback) {
           factory.simpleRequest('movie/popular', callback);
+        },
+        discover: function (callback) {
+          factory.simpleRequest('discover/movie', callback);
         },
 
         search: function (query, callback) {
@@ -108,6 +116,21 @@ angular.module('omdbApp')
             append_to_response: 'combined_credits,images,tagged_images'
           });
         },
+        combined_credits: function (id, callback) {
+          factory.simpleRequest('person/'+id, callback, {
+            append_to_response: 'combined_credits'
+          });
+        },
+        movie_credits: function (id, callback) {
+          factory.simpleRequest('person/'+id, callback, {
+            append_to_response: 'movie_credits'
+          });
+        },
+        tv_credits: function (id, callback) {
+          factory.simpleRequest('person/'+id, callback, {
+            append_to_response: 'tv_credits'
+          });
+        },
 
         popular: function (callback) {
           factory.simpleRequest('person/popular', callback);
@@ -124,6 +147,20 @@ angular.module('omdbApp')
             search_type: 'ngram'
           });
         }
+      },
+
+      multi: {
+        search: function (query, callback) {
+          factory.simpleRequest('search/multi', callback, {
+            query: query
+          });
+        },
+        autocomplete: function (query, callback) {
+          factory.simpleRequest('search/multi', callback, {
+            query: query,
+            search_type: 'ngram'
+          });
+        }        
       },
 
       error: function (data) {
