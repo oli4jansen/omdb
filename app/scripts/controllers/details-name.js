@@ -48,7 +48,9 @@ angular.module('omdbApp')
         // Start at zero
         $scope.backdropIndex = 0;
         $scope.changeBackdrop();
+
       }
+      $scope.profileIndex = 0;
 
       // Add details to the sidebar
 
@@ -116,6 +118,22 @@ angular.module('omdbApp')
         $scope.backdropIndex++;
       }else{
         $scope.backdropIndex = 0;
+      }
+    };
+
+    $scope.prevProfile = function () {
+      if($scope.profileIndex > 0) {
+        $scope.profileIndex--;
+      }else{
+        $scope.profileIndex = $scope.details.images.profiles.length-1;
+      }
+    };
+
+    $scope.nextProfile = function () {
+      if($scope.profileIndex < $scope.details.images.profiles.length-1) {
+        $scope.profileIndex++;
+      }else{
+        $scope.profileIndex = 0;
       }
     };
 

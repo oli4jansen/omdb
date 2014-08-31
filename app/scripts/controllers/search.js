@@ -15,13 +15,9 @@ angular.module('omdbApp')
     $scope.profilePath = config.getImagePath('profile', 1);
 
     // Start with empty search results
-    $scope.movies  = [];
-    $scope.tvShows = [];
-    $scope.people  = [];
-
     $scope.results = [];
 
-    // Search for movies
+    // Search for mresults
     api.multi.search($routeParams.query, function (data) {
       $scope.resultCount = data.total_results;
       for(var i = 0;i<data.results.length;i++) {
@@ -47,20 +43,27 @@ angular.module('omdbApp')
       if(!data) return;
 
       if(data.results.length) {
+        $scope.results = data.results;
+        $scope.command = data.command;
         switch(data.type) {
           case 'tv':
-            $scope.results = data.results;
             $scope.typeDetails = 'title';
             $scope.typeMedia = 'tv';
             break;
           case 'people':
-            $scope.results = data.results;
             $scope.typeDetails = 'name';
             $scope.typeMedia = '';
             break;
+          case 'episodes':
+            $scope.typeDetails = 'title';
+            $scope.typeMedia = 'tv/season';
+            for(var i = 0;i<$scope.results.length;i++) {
+              $scope.results[i].typeMedia = 'tv/season/'+$scope.results[i].season_number+'/episode/'+ $scope.results[i].episode_number;
+              $scope.results[i].id = data.command.subjectObject.id;
+            }
+            break;
           case 'movies':
           default:
-            $scope.results = data.results;
             $scope.typeDetails = 'title';
             $scope.typeMedia = 'movie';
             break;

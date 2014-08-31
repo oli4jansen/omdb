@@ -17,7 +17,11 @@
 
 <div class="page-holder">
 
-	<div class="details-poster" ng-style="{ 'background-image': 'url('+profilePath+details.profile_path+')' }"></div>
+	<div class="details-poster" ng-style="{ 'background-image': 'url('+profilePath+details.images.profiles[profileIndex].file_path+')' }">
+		<div class="poster-controls" ng-if="details.images.profiles.length > 1">
+			<i class="ion-ios7-arrow-back" ng-click="prevProfile()"></i><i class="ion-ios7-arrow-forward" ng-click="nextProfile()"></i>
+		</div>
+	</div>
 
 	<div class="details-content">
 		<div class="col-4">

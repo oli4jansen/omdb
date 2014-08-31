@@ -44,29 +44,16 @@ angular.module('omdbApp')
           // Don't respond to short queries
           if($scope.query.length > 2) {
             // Search for movie suggestions
-/*            api.movies.autocomplete($scope.query, function (data) {
-              $scope.autocompleteMovies = data.results.splice(0,3);
-              $scope.selected = -1;
-            });
-            // Search for person suggestions
-            api.people.autocomplete($scope.query, function (data) {
-              $scope.autocompletePeople = data.results.splice(0,3);
-              $scope.selected = -1;
-            });
-            // Search for tv show suggestions
-            api.tv.autocomplete($scope.query, function (data) {
-              $scope.autocompleteTvShows = data.results.splice(0,3);
-              $scope.selected = -1;
-            });*/
-
             commandSearch.findCommand($scope.query, function (command) {
               if(command) {
-
                 // Clear the 'normal' suggestions
                 $scope.autocompleteResults = [];
 
+                var subjectType = command.subjectType;
+                if(command.subjectType === 'episodes') subjectType = 'tv';
+
                 // Search for subject suggestions of the current command
-                api[command.subjectType].autocomplete(command.subject, function (data) {
+                api[subjectType].autocomplete(command.subject, function (data) {
                   $scope.command = command;
                   $scope.command.title = command.targetSentence[0].toUpperCase()+command.targetSentence.substr(1);
                   $scope.command.results = data.results.splice(0,6);

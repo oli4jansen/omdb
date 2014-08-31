@@ -11,7 +11,7 @@ angular.module('omdbApp')
 
     // Base path for displaying images returned by the API
     $scope.backdropPath = config.getImagePath('backdrop', 'original');
-    $scope.posterPath   = config.getImagePath('poster', 3);
+    $scope.posterPath   = config.getImagePath('poster', 2);
     $scope.profilePath  = config.getImagePath('profile', 3);
 
     // Get the 'plural' form of the type, for accessing the API service
@@ -57,6 +57,8 @@ angular.module('omdbApp')
       $scope.backdropIndex = 0;
       // And start the looping slideshow function
       $scope.changeBackdrop();
+
+      $scope.posterIndex = 0;
 
       // Array representing the star rating
       $scope.stars = [0,0,0,0,0];
@@ -225,6 +227,22 @@ angular.module('omdbApp')
         $scope.backdropIndex++;
       }else{
         $scope.backdropIndex = 0;
+      }
+    };
+
+    $scope.prevPoster = function () {
+      if($scope.posterIndex > 0) {
+        $scope.posterIndex--;
+      }else{
+        $scope.posterIndex = $scope.details.images.posters.length-1;
+      }
+    };
+
+    $scope.nextPoster = function () {
+      if($scope.posterIndex < $scope.details.images.posters.length-1) {
+        $scope.posterIndex++;
+      }else{
+        $scope.posterIndex = 0;
       }
     };
 

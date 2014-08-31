@@ -86,6 +86,11 @@ angular.module('omdbApp')
             append_to_response: 'images,credits'
           });
         },
+        credits: function (id, callback) {
+          factory.simpleRequest('tv/'+id, callback, {
+            append_to_response: 'credits'
+          });
+        },
 
         popular: function (callback) {
           factory.simpleRequest('tv/popular', callback);
@@ -146,6 +151,12 @@ angular.module('omdbApp')
             query: query,
             search_type: 'ngram'
           });
+        }
+      },
+
+      credits: {
+        id: function (id, callback) {
+          factory.simpleRequest('credit/'+id, callback);
         }
       },
 
